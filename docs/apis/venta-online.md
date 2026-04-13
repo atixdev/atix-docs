@@ -1,8 +1,5 @@
 # Venta online
 
-Es la principal integración a realizar.<br/>
-El flujo consiste en autenticar la transacción contra el gateway de pago, obtener una URL de redirección y enviar al tarjetahabiente a completar el pago.
-
 ## 1. Flujo general
 
 1. El servidor del comercio construye el payload con los datos de la transacción.

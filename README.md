@@ -53,7 +53,7 @@ pnpm install
 All content lives inside the `docs/` directory as Markdown files.
 
 - **API docs** → `docs/apis/`
-- **Plugin docs** → `docs/plugin-<name>/`
+- **Plugin docs** → `docs/plugins/`
 
 To add a new page, create a `.md` file in the appropriate folder and register it in `docs/.vitepress/config.mts` under both `nav` and `sidebar`.
 
