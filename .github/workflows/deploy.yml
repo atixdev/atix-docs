@@ -45,11 +45,11 @@ jobs:
         uses: actions/configure-pages@v4
 
       - name: Install dependencies
-        run: pnpm ci
+        run: pnpm i
 
       - name: Build with VitePress
         run: pnpm build
-        
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
