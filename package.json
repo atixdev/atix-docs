@@ -8,6 +8,8 @@
     "vitepress": "^1.6.4"
   },
   "pnpm": {
-    "onlyBuiltDependencies": []
+    "ignoredBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }
