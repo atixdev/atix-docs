@@ -4,7 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "Atix Docs",
   description: "Documentación de integración de Atix Payment Gateway",
-  base: "atix-docs",  // github repo
+  base: "/atix-docs/",  // github repo
   themeConfig: {
     logo: 'https://atix.com.pe/favicon.svg',
     nav: [
