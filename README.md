@@ -18,15 +18,10 @@ docs/
 │   ├── pago-tarjetas.md
 │   ├── link-de-pago.md
 │   └── devolucion.md
-├── plugin-woocommerce/
-│   ├── index.md
-│   └── changelog.md
-├── plugin-prestashop/
-│   ├── index.md
-│   └── changelog.md
-├── plugin-magento/
-│   ├── index.md
-│   └── changelog.md
+├── plugins/
+|   |── woocommerce.md
+|   |── magento.md
+|   └── prestashop.md
 └── index.md             # Redirects to /apis/venta-online
 package.json
 pnpm-lock.yaml

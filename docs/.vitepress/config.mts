@@ -16,8 +16,8 @@ export default defineConfig({
       ]},
       { text: 'Plugins', items: [
         { text: 'WooCommerce', link: '/plugins/woocommerce' },
-        { text: 'PrestaShop', link: '/plugins/prestashop' },
         { text: 'Magento', link: '/plugins/magento' },
+        { text: 'PrestaShop', link: '/plugins/prestashop' },
       ]},
     ],
 
@@ -35,8 +35,8 @@ export default defineConfig({
         text: 'Plugins',
         items: [
           { text: 'WooCommerce', link: '/plugins/woocommerce' },
-          { text: 'Prestashop', link: '/plugins/prestashop' },
           { text: 'Magento', link: '/plugins/magento' },
+          { text: 'PrestaShop', link: '/plugins/prestashop' },
         ]
       },
     ],
