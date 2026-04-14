@@ -4,8 +4,8 @@
 
 En la presente documentación se detalla el endpoint para procesar devoluciones de pagos realizados.
 
-::: info
-Para poder procesar mediante el API de devoluciones, el comercio debe estar certificado con PCI.
+::: warning Importante
+Para poder procesar mediante el API de devoluciones, el comercio debe contar con certificación PCI DSS.
 :::
 
 ## 2. Endpoint

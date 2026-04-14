@@ -10,15 +10,11 @@ export default defineConfig({
     nav: [
       { text: 'APIs', items: [
         { text: 'Venta online', link: '/apis/venta-online' },
-        { text: 'Devolución', link: '/apis/devolucion' },
         { text: 'Link de Pago', link: '/apis/link-de-pago' },
         { text: 'Pago tarjetas', link: '/apis/pago-tarjetas' },
+        { text: 'Devolución', link: '/apis/devolucion' },
       ]},
-      { text: 'Plugins', items: [
-        { text: 'WooCommerce', link: '/plugins/woocommerce' },
-        { text: 'Magento', link: '/plugins/magento' },
-        { text: 'PrestaShop', link: '/plugins/prestashop' },
-      ]},
+      { text: 'Plugins', link: '/plugins' },
     ],
 
     sidebar: [
@@ -26,17 +22,15 @@ export default defineConfig({
         text: 'APIs',
         items: [
           { text: 'Venta online', link: '/apis/venta-online' },
-          { text: 'Devolución', link: '/apis/devolucion' },
           { text: 'Link de Pago', link: '/apis/link-de-pago' },
           { text: 'Pago tarjetas', link: '/apis/pago-tarjetas' },
+          { text: 'Devolución', link: '/apis/devolucion' },
         ]
       },
       {
         text: 'Plugins',
         items: [
-          { text: 'WooCommerce', link: '/plugins/woocommerce' },
-          { text: 'Magento', link: '/plugins/magento' },
-          { text: 'PrestaShop', link: '/plugins/prestashop' },
+          { text: 'Links', link: '/plugins/' },
         ]
       },
     ],
