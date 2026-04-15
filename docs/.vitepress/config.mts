@@ -15,6 +15,7 @@ export default defineConfig({
         { text: 'Devolución', link: '/apis/devolucion' },
       ]},
       { text: 'Plugins', link: '/plugins' },
+      { text: 'Webhook', link: '/webhook' },
     ],
 
     sidebar: [
@@ -27,12 +28,8 @@ export default defineConfig({
           { text: 'Devolución', link: '/apis/devolucion' },
         ]
       },
-      {
-        text: 'Plugins',
-        items: [
-          { text: 'Links', link: '/plugins/' },
-        ]
-      },
+      { text: 'Plugins', link: '/plugins' },
+      { text: 'Webhook', link: '/webhook' },
     ],
 
     socialLinks: [

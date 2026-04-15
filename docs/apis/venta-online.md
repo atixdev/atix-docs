@@ -31,7 +31,101 @@
 | `reference`     | string | Identificador único de la transacción en el comercio.    |
 | `email`         | string | Correo electrónico del tarjetahabiente.                  |
 
-## 4. Ejemplo de implementación (PHP)
+## 4. Ejemplos de implementación
+
+::: code-group
+
+```javascript
+const url = 'https://gateway.atix.com.pe/PaymentGatewayJWS_Sandbox/Service1.svc/GBCPE_AuthenticateUser';
+
+const payload = {
+  Apikey: 'YOUR_API_KEY',
+  Version: 'V1.1',
+  Data: JSON.stringify({
+    totalamount: 10.00,
+    currency: 'PEN',
+    reference: 'ORDER-' + Date.now(), // identificador único por transacción
+    email: 'cardholder@example.com',
+  }),
+};
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: { 'Content-Type': 'text/plain' },
+  body: JSON.stringify(payload),
+});
+
+if (!response.ok) {
+  throw new Error(`Error del servidor: ${response.status}`);
+}
+
+const result = await response.json();
+
+if (!Array.isArray(result) || result.length === 0) {
+  throw new Error('Respuesta inesperada del servidor.');
+}
+
+const gatewayUrl = result[0]?.Url;
+
+if (!gatewayUrl) {
+  throw new Error('No se recibió una URL válida en la respuesta.');
+}
+
+// Redirigir al tarjetahabiente
+window.location.href = gatewayUrl;
+```
+
+```csharp
+using System;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+
+var url = "https://gateway.atix.com.pe/PaymentGatewayJWS_Sandbox/Service1.svc/GBCPE_AuthenticateUser";
+
+var data = JsonSerializer.Serialize(new
+{
+    totalamount = 10.00,
+    currency = "PEN",
+    reference = "ORDER-" + DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), // identificador único por transacción
+    email = "cardholder@example.com",
+});
+
+var payload = JsonSerializer.Serialize(new
+{
+    Apikey = "YOUR_API_KEY",
+    Version = "V1.1",
+    Data = data,
+});
+
+using var client = new HttpClient();
+var content = new StringContent(payload, Encoding.UTF8, "text/plain");
+var response = await client.PostAsync(url, content);
+
+if (!response.IsSuccessStatusCode)
+{
+    throw new Exception($"Error del servidor: {(int)response.StatusCode}");
+}
+
+var responseBody = await response.Content.ReadAsStringAsync();
+var result = JsonSerializer.Deserialize<JsonElement[]>(responseBody);
+
+if (result == null || result.Length == 0)
+{
+    throw new Exception("Respuesta inesperada del servidor.");
+}
+
+var gatewayUrl = result[0].GetProperty("Url").GetString();
+
+if (string.IsNullOrEmpty(gatewayUrl))
+{
+    throw new Exception("No se recibió una URL válida en la respuesta.");
+}
+
+// Redirigir al tarjetahabiente
+Console.WriteLine($"Redirigir a: {gatewayUrl}");
+```
 
 ```php
 <?php
@@ -84,7 +178,10 @@ if (!$gatewayUrl) {
 // Redirigir al tarjetahabiente
 header("Location: $gatewayUrl");
 exit;
+
 ```
+
+:::
 
 ## 5. Respuesta esperada
 

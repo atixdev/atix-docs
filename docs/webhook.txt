@@ -1,0 +1,21 @@
+Atix Webhook
+
+Estructura del cuerpo:
+{
+  "event": "payment_successful",
+  "signature": "849a6a208022b66f9f6ae65dd235513adebdabf315d5e006d3adea0c6a867d11",
+  "data": {
+    "reference": 618,
+    "result_transaction_code": "00" //99
+  }
+}
+
+* El evento “payment_successful” es el único evento activo en la actualidad
+
+Para validar el signature:
+
+Se debe generar el signature al recibir el webhook de la siguiente forma:
+signature = sha256(event + reference + result_transaction_code + security_key)
+* security_key: <llave obtenida del dashboard>
+
+Ese valor debe ser igual al recibido en el webhook para considerar válido el evento.
