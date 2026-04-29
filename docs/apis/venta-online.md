@@ -29,7 +29,7 @@
 | `totalamount`   | float  | Monto total de la transacción.                           |
 | `reference`     | string | Identificador único de la transacción en el comercio.    |
 | `email`         | string | Correo electrónico del tarjetahabiente.                  |
-| `expiresIn`     | number | Tiempo de expiración en minutos.                         |
+| `expiresIn`     | number | Tiempo de expiración en minutos (20 por defecto).        |
 
 ## 4. Ejemplos de implementación
 
