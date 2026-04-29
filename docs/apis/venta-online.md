@@ -27,9 +27,9 @@
 | Campo           | Tipo   | Descripción                                              |
 | --------------- | ------ | -------------------------------------------------------- |
 | `totalamount`   | float  | Monto total de la transacción.                           |
-| `currency`      | string | Código de moneda (ej. `PEN`, `USD`).                     |
 | `reference`     | string | Identificador único de la transacción en el comercio.    |
 | `email`         | string | Correo electrónico del tarjetahabiente.                  |
+| `expiresIn`     | string | Tiempo de expiración en minutos.                         |
 
 ## 4. Ejemplos de implementación
 
