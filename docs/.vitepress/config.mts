@@ -10,6 +10,7 @@ export default defineConfig({
     nav: [
       { text: 'APIs', items: [
         { text: 'Venta online', link: '/apis/venta-online' },
+        { text: 'Consulta', link: '/apis/consulta' },
         { text: 'Link de Pago', link: '/apis/link-de-pago' },
         { text: 'Pago tarjetas', link: '/apis/pago-tarjetas' },
         { text: 'Devolución', link: '/apis/devolucion' },
@@ -23,6 +24,7 @@ export default defineConfig({
         text: 'APIs',
         items: [
           { text: 'Venta online', link: '/apis/venta-online' },
+          { text: 'Consulta', link: '/apis/consulta' },
           { text: 'Link de Pago', link: '/apis/link-de-pago' },
           { text: 'Pago tarjetas', link: '/apis/pago-tarjetas' },
           { text: 'Devolución', link: '/apis/devolucion' },

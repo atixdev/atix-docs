@@ -31,7 +31,16 @@
 | `email`         | string | Correo electrónico del tarjetahabiente.                  |
 | `expiresIn`     | number | Tiempo de expiración en minutos (20 por defecto).        |
 
-## 4. Ejemplos de implementación
+## 4. Respuesta del servidor
+
+La respuesta es enviada en formato JSON, que consiste en un array cuyo primer elemento contiene el objeto de respuesta.
+
+| Campo          | Tipo   | Descripción                                              |
+| -------------- | ------ | -------------------------------------------------------- |
+| `Url`          | string | Url que debe visitar el usuario final a realizar el pago |
+| `Token`        | string | Identificador de la venta, puede usarse en el servicio de consulta |
+
+## 5. Ejemplos de implementación
 
 ::: code-group
 
@@ -43,7 +52,6 @@ const payload = {
   Version: 'V1.1',
   Data: JSON.stringify({
     totalamount: 10.00,
-    currency: 'PEN',
     reference: 'ORDER-' + Date.now(), // identificador único por transacción
     email: 'cardholder@example.com',
   }),
@@ -87,7 +95,6 @@ var url = "https://gateway.atix.com.pe/PaymentGatewayJWS_Sandbox/Service1.svc/GB
 var data = JsonSerializer.Serialize(new
 {
     totalamount = 10.00,
-    currency = "PEN",
     reference = "ORDER-" + DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), // identificador único por transacción
     email = "cardholder@example.com",
 });
@@ -138,7 +145,6 @@ $payload = [
   'Version' => 'V1.1',
   'Data'    => json_encode([
     'totalamount' => 10.00,
-    'currency'    => 'PEN',
     'reference'   => 'ORDER-' . uniqid(), // identificador único por transacción
     'email'       => 'cardholder@example.com',
   ]),
@@ -182,18 +188,6 @@ exit;
 ```
 
 :::
-
-## 5. Respuesta esperada
-
-El gateway devuelve un array JSON. El campo `Url` del primer elemento contiene la URL a la que se debe redirigir al tarjetahabiente.
-
-```json
-[
-  {
-    "Url": "https://gateway.atix.com.pe/..."
-  }
-]
-```
 
 ## 6. Consideraciones
 
