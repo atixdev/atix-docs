@@ -6,8 +6,8 @@ Este servicio permite consultar el estado de una transacción previamente genera
 
 | Entorno    | URL                                                                                              |
 | ---------- | ------------------------------------------------------------------------------------------------ |
-| Sandbox    | `https://gateway.atix.com.pe/PaymentGatewayJWS_Sandbox/transactions/:transactionId`             |
-| Producción | `https://gateway.atix.com.pe/PaymentGatewayJWS/transactions/:transactionId`                     |
+| Sandbox    | GET `https://gateway.atix.com.pe/PaymentGatewayJWS_Sandbox/transactions/:transactionId`             |
+| Producción | GET `https://gateway.atix.com.pe/PaymentGatewayJWS/transactions/:transactionId`                     |
 
 > Reemplazar `:transactionId` por el identificador numérico devuelto al crear la transacción.
 

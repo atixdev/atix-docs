@@ -6,8 +6,8 @@ Este servicio permite generar un código QR de pago. El `qrHash` devuelto debe s
 
 | Entorno    | URL                                                                                |
 | ---------- | ---------------------------------------------------------------------------------- |
-| Sandbox    | `https://gateway.atix.com.pe/PaymentGatewayJWS_Sandbox/transactions/qr`            |
-| Producción | `https://gateway.atix.com.pe/PaymentGatewayJWS/transactions/qr`                    |
+| Sandbox    | POST `https://gateway.atix.com.pe/PaymentGatewayJWS_Sandbox/transactions/qr`            |
+| Producción | POST `https://gateway.atix.com.pe/PaymentGatewayJWS/transactions/qr`                    |
 
 ## 2. Request
 ### Headers
@@ -21,8 +21,6 @@ Value: application/json
 ```
 
 ### Body
-
-Se detallan cada uno de los campos que se deben enviar para generar el QR **(POST)**.
 
 ```json
 {
