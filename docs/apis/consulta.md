@@ -1,42 +1,72 @@
 # Consulta de transacción
 
+Este servicio permite consultar el estado de una transacción previamente generada (por ejemplo, al crear un código QR) utilizando su `transactionId` devuelto por el gateway.
+
 ## 1. Endpoints
 
-| Entorno    | URL                                                                                                      |
-| ---------- | -------------------------------------------------------------------------------------------------------- |
-| Sandbox    | `https://gateway.atix.com.pe/PaymentGatewayJWS_Sandbox/Service1.svc/GBCPE_ResultTransaction`           |
-| Producción | `https://gateway.atix.com.pe/PaymentGatewayJWS/Service1.svc/GBCPE_ResultTransaction`                   |
+| Entorno    | URL                                                                                              |
+| ---------- | ------------------------------------------------------------------------------------------------ |
+| Sandbox    | `https://gateway.atix.com.pe/PaymentGatewayJWS_Sandbox/transactions/:transactionId`             |
+| Producción | `https://gateway.atix.com.pe/PaymentGatewayJWS/transactions/:transactionId`                     |
 
-## 2. Parámetros del request
+> Reemplazar `:transactionId` por el identificador numérico devuelto al crear la transacción.
 
-| Campo    | Tipo   | Descripción                                     |
-| -------- | ------ | ---------------------------------------------- |
-| `Token`  | string | Token obtenido en la respuesta de venta-online |
+## 2. Request
 
-## 3. Respuesta del servidor
+### Headers
 
-| Campo            | Tipo   | Descripción                                              |
-| ---------------- | ------ | -------------------------------------------------------- |
-| `ReferenceCode`  | string | Código de autorización bancario (para pagos con tarjetas) |
-| `ResultCode`     | string | `00` = Aprobada, cualquier otro valor es un error       |
-| `TotalAmount`    | number | Monto de la venta                                        |
-| `Reference`      | string | Referencia asignada por el comercio                     |
+```
+Key: Authorization
+Value: Bearer YOUR_API_KEY
+```
 
-## 4. Ejemplos de implementación
+### Parámetros de URL
+
+| Parámetro       | Tipo   | Descripción                                                  |
+| --------------- | ------ | ------------------------------------------------------------ |
+| `transactionId` | number | Identificador de la transacción devuelto por el gateway.     |
+
+## 3. Response
+
+### Body
+
+```json
+{
+  "reference": "QR-20240121-1",
+  "transactionId": 58741,
+  "resultCode": "00",
+  "expiresAt": "2024-01-21T12:31:00Z",
+  "qrHash": "00020101021143650016COM.PE.INTERBANK010100304...6304ABCD"
+}
+```
+
+### Diccionario de datos
+
+| Campo           | Tipo   | Descripción                                                                                       |
+| --------------- | ------ | ------------------------------------------------------------------------------------------------- |
+| `reference`     | string | Identificador único de la transacción en el comercio.                                             |
+| `transactionId` | number | Identificador de la transacción en el gateway.                                                    |
+| `resultCode`    | string | Código de resultado de la transacción. `"00"` indica aprobada.                                    |
+| `expiresAt`     | string | Fecha y hora de expiración de la transacción en formato ISO 8601.                                 |
+| `qrHash`        | string | Contenido del QR. Solo se devuelve si el pago aún está pendiente.                                 |
+
+## 4. Consideraciones
+
+- Se recomienda respetar el `expiresAt` para no mostrar QRs vencidos al usuario.
+
+## 5. Ejemplos de implementación
 
 ::: code-group
 
 ```javascript
-const url = 'https://gateway.atix.com.pe/PaymentGatewayJWS_Sandbox/Service1.svc/GBCPE_ResultTransaction';
-
-const payload = {
-  Token: 'TOKEN_OBTENIDO_EN_VENTA_ONLINE',
-};
+const transactionId = 58741;
+const url = `https://gateway.atix.com.pe/PaymentGatewayJWS_Sandbox/transactions/${transactionId}`;
 
 const response = await fetch(url, {
-  method: 'POST',
-  headers: { 'Content-Type': 'text/plain' },
-  body: JSON.stringify(payload),
+  method: 'GET',
+  headers: {
+    'Authorization': 'Bearer YOUR_API_KEY',
+  },
 });
 
 if (!response.ok) {
@@ -45,31 +75,29 @@ if (!response.ok) {
 
 const result = await response.json();
 
-if (result.ResultCode === '00') {
-  console.log('Transacción aprobada');
-  console.log('Código de autorización:', result.ReferenceCode);
-} else {
-  console.log('Transacción denegada');
+console.log('Referencia:', result.reference);
+console.log('Resultado:', result.resultCode);
+console.log('Expira en:', result.expiresAt);
+
+if (result.qrHash) {
+  console.log('Pago aún pendiente, QR:', result.qrHash);
 }
 ```
 
 ```csharp
 using System;
 using System.Net.Http;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-var url = "https://gateway.atix.com.pe/PaymentGatewayJWS_Sandbox/Service1.svc/GBCPE_ResultTransaction";
-
-var payload = JsonSerializer.Serialize(new
-{
-    Token = "TOKEN_OBTENIDO_EN_VENTA_ONLINE"
-});
+var transactionId = 58741;
+var url = $"https://gateway.atix.com.pe/PaymentGatewayJWS_Sandbox/transactions/{transactionId}";
 
 using var client = new HttpClient();
-var content = new StringContent(payload, Encoding.UTF8, "text/plain");
-var response = await client.PostAsync(url, content);
+var request = new HttpRequestMessage(HttpMethod.Get, url);
+request.Headers.Add("Authorization", "Bearer YOUR_API_KEY");
+
+var response = await client.SendAsync(request);
 
 if (!response.IsSuccessStatusCode)
 {
@@ -79,33 +107,33 @@ if (!response.IsSuccessStatusCode)
 var responseBody = await response.Content.ReadAsStringAsync();
 var result = JsonSerializer.Deserialize<JsonElement>(responseBody);
 
-if (result.GetProperty("ResultCode").GetString() == "00")
+var reference  = result.GetProperty("reference").GetString();
+var resultCode = result.GetProperty("resultCode").GetString();
+var expiresAt  = result.GetProperty("expiresAt").GetString();
+
+Console.WriteLine($"Referencia: {reference}");
+Console.WriteLine($"Resultado:  {resultCode}");
+Console.WriteLine($"Expira en:  {expiresAt}");
+
+if (result.TryGetProperty("qrHash", out var qrHash))
 {
-    Console.WriteLine("Transacción aprobada");
-    Console.WriteLine($"Código de autorización: {result.GetProperty("ReferenceCode").GetString()}");
-}
-else
-{
-    Console.WriteLine("Transacción denegada");
+    Console.WriteLine($"Pago aún pendiente, QR: {qrHash.GetString()}");
 }
 ```
 
 ```php
 <?php
 
-$url = 'https://gateway.atix.com.pe/PaymentGatewayJWS_Sandbox/Service1.svc/GBCPE_ResultTransaction';
-
-$payload = json_encode([
-    'Token' => 'TOKEN_OBTENIDO_EN_VENTA_ONLINE',
-]);
+$transactionId = 58741;
+$url = "https://gateway.atix.com.pe/PaymentGatewayJWS_Sandbox/transactions/{$transactionId}";
 
 $ch = curl_init($url);
 
 curl_setopt_array($ch, [
     CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_POST           => true,
-    CURLOPT_HTTPHEADER     => ['Content-Type: text/plain'],
-    CURLOPT_POSTFIELDS     => $payload,
+    CURLOPT_HTTPHEADER     => [
+        'Authorization: Bearer YOUR_API_KEY',
+    ],
 ]);
 
 $response = curl_exec($ch);
@@ -118,20 +146,23 @@ if ($error) {
     throw new RuntimeException("cURL error: $error");
 }
 
-$result = json_decode($response, true);
-
-if ($result['ResultCode'] === '00') {
-    echo "Transacción aprobada\n";
-    echo "Código de autorización: " . $result['ReferenceCode'] . "\n";
-} else {
-    echo "Transacción denegada\n";
+if ($httpCode >= 400) {
+    throw new RuntimeException("Error del servidor: $httpCode");
 }
 
-?>
+$result = json_decode($response, true);
+
+if (!is_array($result)) {
+    throw new RuntimeException("Respuesta inesperada del servidor.");
+}
+
+echo "Referencia: " . $result['reference'] . "\n";
+echo "Resultado:  " . $result['resultCode'] . "\n";
+echo "Expira en:  " . $result['expiresAt'] . "\n";
+
+if (!empty($result['qrHash'])) {
+    echo "Pago aún pendiente, QR: " . $result['qrHash'] . "\n";
+}
 ```
 
 :::
-
-## 5. Consideraciones
-
-- Usar siempre HTTPS en todas las comunicaciones.

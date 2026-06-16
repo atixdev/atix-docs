@@ -6,4 +6,4 @@ layout: page
 import { withBase } from 'vitepress'
 </script>
 
-<meta http-equiv="refresh" :content="`0; url=${withBase('/apis/venta-online.html')}`" />
+<meta http-equiv="refresh" :content="`0; url=${withBase('/ecommerce/venta-online.html')}`" />

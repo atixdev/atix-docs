@@ -7,27 +7,21 @@ export default defineConfig({
   // base: "/atix-docs/",  // github repo
   themeConfig: {
     logo: 'https://atix.com.pe/favicon.svg',
-    nav: [
-      { text: 'APIs', items: [
-        { text: 'Venta online', link: '/apis/venta-online' },
-        { text: 'Consulta', link: '/apis/consulta' },
-        { text: 'Link de Pago', link: '/apis/link-de-pago' },
-        { text: 'Pago tarjetas', link: '/apis/pago-tarjetas' },
-        { text: 'Devolución', link: '/apis/devolucion' },
-      ]},
-      { text: 'Plugins', link: '/plugins' },
-      { text: 'Webhook', link: '/webhook' },
-    ],
 
     sidebar: [
       {
+        text: 'Comercio electrónico',
+        items: [
+          { text: 'Venta online', link: '/ecommerce/venta-online' },
+          { text: 'Consulta', link: '/ecommerce/consulta' },
+          { text: 'Link de Pago', link: '/ecommerce/link-de-pago' },
+        ]
+      },
+      {
         text: 'APIs',
         items: [
-          { text: 'Venta online', link: '/apis/venta-online' },
+          { text: 'Pago QR', link: '/apis/qr' },
           { text: 'Consulta', link: '/apis/consulta' },
-          { text: 'Link de Pago', link: '/apis/link-de-pago' },
-          { text: 'Pago tarjetas', link: '/apis/pago-tarjetas' },
-          { text: 'Devolución', link: '/apis/devolucion' },
         ]
       },
       { text: 'Plugins', link: '/plugins' },
