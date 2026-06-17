@@ -2,12 +2,13 @@
 
 Este servicio permite generar un código QR de pago. El `qrHash` devuelto debe ser renderizado como una imagen QR en el lado del cliente para que el usuario pueda escanearlo y completar el pago.
 
-## 1. Endpoints
+## 1. Endpoint
 
-| Entorno    | URL                                                                                |
+| | |
 | ---------- | ---------------------------------------------------------------------------------- |
-| Sandbox    | POST `https://gateway.atix.com.pe/PaymentGatewayJWS_Sandbox/transactions/qr`            |
-| Producción | POST `https://gateway.atix.com.pe/PaymentGatewayJWS/transactions/qr`                    |
+| Método | POST |
+| Sandbox    | `https://gateway.atix.com.pe/PaymentGatewayJWS_Sandbox/Service1.svc/transactions/qr` |
+| Producción | `https://gateway.atix.com.pe/PaymentGatewayJWS/Service1.svc/transactions/qr`         |
 
 ## 2. Request
 ### Headers

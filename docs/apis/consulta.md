@@ -2,14 +2,15 @@
 
 Este servicio permite consultar el estado de una transacción previamente generada (por ejemplo, al crear un código QR) utilizando su `transactionId` devuelto por el gateway.
 
-## 1. Endpoints
+## 1. Endpoint
 
-| Entorno    | URL                                                                                              |
+| | |
 | ---------- | ------------------------------------------------------------------------------------------------ |
-| Sandbox    | GET `https://gateway.atix.com.pe/PaymentGatewayJWS_Sandbox/transactions/:transactionId`             |
-| Producción | GET `https://gateway.atix.com.pe/PaymentGatewayJWS/transactions/:transactionId`                     |
+| Método | GET |
+| Sandbox    | `https://gateway.atix.com.pe/PaymentGatewayJWS_Sandbox/Service1.svc/transactions/:transactionId` |
+| Producción | `https://gateway.atix.com.pe/PaymentGatewayJWS/Service1.svc/transactions/:transactionId`         |
 
-> Reemplazar `:transactionId` por el identificador numérico devuelto al crear la transacción.
+> Reemplazar `:transactionId` por el identificador numérico obtenido al crear la transacción.
 
 ## 2. Request
 
