@@ -10,7 +10,8 @@ Al recibir un webhook, el cuerpo de la solicitud tendrá el siguiente formato JS
   "signature": "849a6a208022b66f9f6ae65dd235513adebdabf315d5e006d3adea0c6a867d11",
   "data": {
     "reference": "1000",
-    "result_transaction_code": "00"
+    "result_transaction_code": "00",
+    "payment_method": 3
   }
 }
 ```
@@ -22,7 +23,8 @@ Al recibir un webhook, el cuerpo de la solicitud tendrá el siguiente formato JS
 | `event` | Nombre del evento disparado |
 | `signature` | Hash de verificación para validar la autenticidad del webhook |
 | `data.reference` | Identificador de referencia de la transacción |
-| `result_transaction_code` | Código de resultado de la transacción (`"00"` = exitoso, `"99"` = fallido) |
+| `data.result_transaction_code` | Código de resultado de la transacción (`"00"` = exitoso, `"99"` = fallido) |
+| `data.payment_method` | Método de pago (`1` = Tarjeta, `3` = QR, `4` = CCIV) |
 
 > **Nota:** El evento `payment_successful` es el único evento activo en la actualidad.
 
